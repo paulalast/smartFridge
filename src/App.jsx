@@ -6,8 +6,9 @@ import FullFridgeHome from "./pages/FullFridgeHome"
 function App() {
 	const [empty, setEmpty] = useState(true)
 	return (
-		<main className='w-full h-full '>
+		<main className='flex flex-col w-full h-full '>
 			{empty ? <EmptyFridgeHome /> : <FullFridgeHome />}
+
 		</main>
 	)
 }

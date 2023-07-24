@@ -9,7 +9,7 @@
 
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
-	/* background-color: #242424; */
+	font-size: 62.5%;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -20,18 +20,21 @@
 	--text-font: "Anek Gurmukhi", sans-serif;
 	--title-font: "DM Serif Display", serif;
 	--main-color: #6ab175;
+	--darkGreen-color: #406b47eb;
 	--dark-color: #0b0b0b;
 	--white-color: #ffffff;
 }
 a {
 	font-weight: 500;
-	color: var(--main-color);
+	color: var(--white-color);
 	text-decoration: inherit;
-}
-a:hover {
-	color: var(--main-color);
+	transition: color 0.3s;
 }
 
+h1 {
+	text-transform: uppercase;
+	font-size: 32px;
+}
 body {
 	margin: 0;
 	display: flex;
@@ -43,22 +46,33 @@ body {
 h1 {
 	font-size: 3.2em;
 	line-height: 1.1;
+	padding: 0.5em;
+	text-shadow: 1px 1px 1px var(--white-color);
+	letter-spacing: 0.03em;
 }
 
 button {
 	border-radius: 8px;
 	border: 1px solid transparent;
 	padding: 0.6em 1.2em;
-	font-size: 1em;
+	font-size: 1.6em;
 	font-weight: 500;
-	font-family: inherit;
-	/* background-color: #1a1a1a; */
+	font-family: var(--text-font);
+	color: var(--white-color);
+	background-color: var(--main-color);
 	cursor: pointer;
 	transition: border-color 0.25s;
+	width: 327px;
+	height: 48px;
+	margin: 0.5em;
+	transition: background-color 0.3s, box-shadow 0.5s;
 }
 button:hover {
-	border-color: var(--main-color);
+	border-color: var(--darkGreen-color);
+	background-color: var(--darkGreen-color);
+	box-shadow: inset 1px 1px 5px var(--darkGreen-color);
 }
+
 button:focus,
 button:focus-visible {
 	outline: 4px auto -webkit-focus-ring-color;
@@ -70,9 +84,10 @@ button:focus-visible {
 		background-color: var(--white-color);
 	}
 	a:hover {
-		color: var(--main-color);
+		color: var(--white-color);
 	}
 	button {
-		background-color: var(--white-color);
+		background-color: var(--main-color);
+		color: var(--white-color);
 	}
 }
