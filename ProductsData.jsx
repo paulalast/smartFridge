@@ -1,4 +1,4 @@
-const BasicDatabase = [
+const productsData = [
 	{
 		id: 1,
 		name: "Jabłka",
@@ -51,4 +51,4 @@ const BasicDatabase = [
 	},
 ]
 
-export default BasicDatabase
+export default productsData
