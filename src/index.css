@@ -51,7 +51,7 @@ h1 {
 	letter-spacing: 0.03em;
 }
 
-button {
+.button-green {
 	border-radius: 8px;
 	border: 1px solid transparent;
 	padding: 0.6em 1.2em;
@@ -67,14 +67,18 @@ button {
 	margin: 0.5em;
 	transition: background-color 0.3s, box-shadow 0.5s;
 }
-button:hover {
+.button-green:hover {
 	border-color: var(--darkGreen-color);
 	background-color: var(--darkGreen-color);
 	box-shadow: inset 1px 1px 5px var(--darkGreen-color);
 }
-
-button:focus,
-button:focus-visible {
+input::placeholder {
+	color: var(--darkGreen-color);
+	opacity: 1;
+  font-size: 1.2em;
+}
+.button-green:focus,
+.button-green:focus-visible {
 	outline: 4px auto -webkit-focus-ring-color;
 }
 
@@ -86,8 +90,25 @@ button:focus-visible {
 	a:hover {
 		color: var(--white-color);
 	}
-	button {
+	.button-green {
 		background-color: var(--main-color);
 		color: var(--white-color);
 	}
+}
+
+input:focus,
+input:active,
+input:focus-visible {
+	border-color: var(--darkGreen-color);
+	opacity: 1;
+	outline: var(--darkGreen-color);
+	border-radius: 4px;
+}
+
+input {
+	background-image: url("search.png");
+  background-repeat: no-repeat;
+  background-size: 6%;
+  background-position: 95% center;
+  border-radius: 3px;
 }

@@ -1,11 +1,7 @@
 import React from "react"
 
 function Button({ buttonText }) {
-	return (
-		<button className=''>
-			<a href='#'>{buttonText}</a>
-		</button>
-	)
+	return <button className='button-green'>{buttonText}</button>
 }
 
 export default Button
