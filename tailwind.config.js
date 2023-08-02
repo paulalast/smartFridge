@@ -10,8 +10,8 @@ export default {
 				white: "#ffffff",
 			},
 			fontFamily: {
-				textFont: ["Anek Gurmukhi", " sans-serif"],
 				titleFont: ["DM Serif Display", "serif"],
+				textFont: ["Ysabeau Infant", "sans-serif"],
 			},
 		},
 	},

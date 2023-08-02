@@ -17,8 +17,8 @@
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
 
-	--text-font: "Anek Gurmukhi", sans-serif;
 	--title-font: "DM Serif Display", serif;
+	--text-font: "Ysabeau Infant", sans-serif;
 	--main-color: #6ab175;
 	--darkGreen-color: #406b47eb;
 	--dark-color: #0b0b0b;
@@ -41,6 +41,8 @@ body {
 	place-items: center;
 	min-width: 320px;
 	min-height: 100vh;
+	font-family: var(--text-font);
+
 }
 
 h1 {
@@ -50,8 +52,8 @@ h1 {
 	text-shadow: 1px 1px 1px var(--white-color);
 	letter-spacing: 0.03em;
 }
-li{
-  font-family: var(--text-font);
+li {
+	font-family: var(--text-font);
 }
 .button-green {
 	border-radius: 8px;
@@ -74,7 +76,7 @@ li{
 	background-color: var(--darkGreen-color);
 	box-shadow: inset 1px 1px 5px var(--darkGreen-color);
 }
-input::placeholder {
+.search-input::placeholder {
 	color: var(--darkGreen-color);
 	opacity: 1;
 	font-size: 1.2em;
@@ -98,19 +100,23 @@ input::placeholder {
 	}
 }
 
-input:focus,
-input:active,
-input:focus-visible {
+.search-input:focus,
+.search-input:active,
+.search-input:focus-visible {
 	border-color: var(--darkGreen-color);
 	opacity: 1;
 	outline: var(--darkGreen-color);
 	border-radius: 4px;
 }
 
-input {
+.search-input {
 	background-image: url("search.png");
 	background-repeat: no-repeat;
 	background-size: 6%;
 	background-position: 95% center;
 	border-radius: 3px;
+}
+input{
+	font-family: var(--text-font);
+
 }
