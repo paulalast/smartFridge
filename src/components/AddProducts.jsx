@@ -5,8 +5,8 @@ import SearchPanel from "./SearchPanel"
 
 function AddProducts({ onClose }) {
 	return (
-		<div className='fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50'>
-			<div className='flex p-5 max-w-max flex-col items-center w-full h-4/5 bg-white border-2 relative'>
+		<div className='fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 '>
+			<div className='flex p-5 max-w-max flex-col items-center w-full h-4/5 bg-white border-2 relative overflow-y-auto'>
 				<IconBtn iconSrc='exit.svg' altText='exit icon' onClick={onClose} />
 				<div className='flex flex-col w-full h-full mt-14 p-2'>
 					<SearchPanel />

@@ -9,6 +9,8 @@
 
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
+	color: var(--dark-color);
+	background-color: var(--white-color);
 	font-size: 62.5%;
 
 	font-synthesis: none;
@@ -42,7 +44,6 @@ body {
 	min-width: 320px;
 	min-height: 100vh;
 	font-family: var(--text-font);
-
 }
 
 h1 {
@@ -116,7 +117,11 @@ li {
 	background-position: 95% center;
 	border-radius: 3px;
 }
-input{
+input {
 	font-family: var(--text-font);
-
+	background-color: var(--white-color);
+}
+select{
+	background-color: var(--white-color);
+	outline: #6ab175;
 }

@@ -1,5 +1,4 @@
-import React, { useState } from "react"
-import productsData from "../../ProductsData"
+import React, { useEffect, useState } from "react"
 
 const AddBtn = () => {
 	function addProductToTheFridge() {
@@ -14,30 +13,40 @@ const AddBtn = () => {
 		</button>
 	)
 }
-fetch(
-	"https://api.nal.usda.gov/fdc/v1/foods/search?api_key=DEMO_KEY&query=Che"
-)
-	.then(res => res.json())
-	.then(data => {
-		console.log(data)
-	})
-	.catch(err => {
-		console.error("Błąd", err)
-	})
-
-// const API_KEY = "8reRoJC48SsY56I2CHnjFse3xDcrTOe6N4Lzt6nN"
 
 function SearchPanel() {
 	const [searchProduct, setSearchProduct] = useState("")
+	const [searchResults, setSearchResults] = useState([])
+
 	const handleSearch = e => {
 		setSearchProduct(e.target.value)
 	}
+
+	useEffect(() => {
+		if (searchProduct.length >= 4) {
+			const API_KEY = "74c9df41a61f44b49363d25085ceeade"
+			fetch(
+				`https://api.spoonacular.com/food/ingredients/search?apiKey=${API_KEY}&query=${encodeURIComponent(
+					searchProduct
+				)}`
+			)
+				.then(res => res.json())
+				.then(data => {
+					setSearchResults(data.results)
+					console.log(data)
+				})
+				.catch(err => {
+					console.error("Błąd", err)
+				})
+		} else {
+			setSearchResults([])
+		}
+	}, [searchProduct])
+
 	const showList = searchProduct.length > 0
-	const filteredProducts = productsData.filter(product =>
-		product.name.toLowerCase().includes(searchProduct.toLowerCase())
-	)
+
 	return (
-		<div className='flex flex-col w-full justify-center items-center  '>
+		<div className='flex flex-col w-full justify-center bg-pink-100 items-center overflow-y-auto '>
 			<input
 				type='text'
 				placeholder='Search for a product...'
@@ -46,19 +55,19 @@ function SearchPanel() {
 				onChange={handleSearch}
 			/>
 			{showList && (
-				<ul className='mt-4 w-5/6 my-2 pl-6 font-textFont'>
-					{filteredProducts.map(product => (
-						<div className='flex'>
+				<ul className='mt-4 w-5/6 my-2 pl-6 font-textFont border py-1 max-h-[250] overflow-y-auto  '>
+					{searchResults.map(food => (
+						<div className='flex h-fit max-h-full  '>
 							<li
-								className='flex w-full bg-yellow-100 flex-row p-2 text-2xl '
-								key={product.id}
+								className='flex w-full bg-yellow-100 flex-row p-2 text-2xl text-left border-b'
+								key={food.id}
 							>
-								{product.name}
+								{food.name}
 							</li>
 							<input
 								type='number'
 								id='quantity'
-								inputmode='numeric'
+								inputMode='numeric'
 								pattern='[0-9]*'
 								placeholder='1'
 								min='0'
