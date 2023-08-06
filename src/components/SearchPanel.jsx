@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useQuery } from "react-query"
 
 const AddBtn = () => {
 	function addProductToTheFridge() {
@@ -17,33 +18,47 @@ const AddBtn = () => {
 function SearchPanel() {
 	const [searchProduct, setSearchProduct] = useState("")
 	const [searchResults, setSearchResults] = useState([])
+	const [allProducts, setAllProducts] = useState([])
 
-	const handleSearch = e => {
-		setSearchProduct(e.target.value)
+	const fetchAllProducts = async () => {
+		const API_KEY = "74c9df41a61f44b49363d25085ceeade"
+		const response = await fetch(
+			`https://api.spoonacular.com/food/ingredients/search?apiKey=${API_KEY}`
+		)
+		console.log("start API")
+		const data = await response.json()
+		return data.results
 	}
 
+	const { data, isLoading } = useQuery(["allProducts"], fetchAllProducts)
+
 	useEffect(() => {
-		if (searchProduct.length >= 4) {
-			const API_KEY = "74c9df41a61f44b49363d25085ceeade"
-			fetch(
-				`https://api.spoonacular.com/food/ingredients/search?apiKey=${API_KEY}&query=${encodeURIComponent(
-					searchProduct
-				)}`
-			)
-				.then(res => res.json())
-				.then(data => {
-					setSearchResults(data.results)
-					console.log(data)
-				})
-				.catch(err => {
-					console.error("Błąd", err)
-				})
+		if (!isLoading && data) {
+			setAllProducts(data)
+		}
+	}, [isLoading, data])
+
+	useEffect(() => {
+		let timerId
+
+		if (searchProduct.length >= 3) {
+			timerId = setTimeout(() => {
+				const filteredProducts = allProducts.filter(product =>
+					product.name.toLowerCase().includes(searchProduct.toLowerCase())
+				)
+				setSearchResults(filteredProducts)
+			}, 1000)
 		} else {
 			setSearchResults([])
 		}
-	}, [searchProduct])
+
+		return () => clearTimeout(timerId)
+	}, [searchProduct, allProducts])
 
 	const showList = searchProduct.length > 0
+	const handleSearch = e => {
+		setSearchProduct(e.target.value)
+	}
 
 	return (
 		<div className='flex flex-col w-full justify-center bg-pink-100 items-center overflow-y-auto '>
@@ -57,11 +72,8 @@ function SearchPanel() {
 			{showList && (
 				<ul className='mt-4 w-5/6 my-2 pl-6 font-textFont border py-1 max-h-[250] overflow-y-auto  '>
 					{searchResults.map(food => (
-						<div className='flex h-fit max-h-full  '>
-							<li
-								className='flex w-full bg-yellow-100 flex-row p-2 text-2xl text-left border-b'
-								key={food.id}
-							>
+						<div className='flex h-fit max-h-full  ' key={food.id}>
+							<li className='flex w-full bg-yellow-100 flex-row p-2 text-2xl text-left border-b'>
 								{food.name}
 							</li>
 							<input

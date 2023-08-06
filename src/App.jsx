@@ -4,6 +4,8 @@ import EmptyFridgeHome from "./pages/EmptyFridgeHome"
 import FullFridgeHome from "./pages/FullFridgeHome"
 import AddProducts from "./components/AddProducts"
 
+
+
 function App() {
 	const [empty, setEmpty] = useState(true)
 	return (
