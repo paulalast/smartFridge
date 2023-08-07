@@ -21,7 +21,7 @@ function SearchPanel() {
 	const [allProducts, setAllProducts] = useState([])
 
 	const fetchAllProducts = async () => {
-		const API_KEY = "74c9df41a61f44b49363d25085ceeade"
+		const API_KEY = process.env.REACT_APP_SPOONACULAR_API_KEY
 		const response = await fetch(
 			`https://api.spoonacular.com/food/ingredients/search?apiKey=${API_KEY}`
 		)
