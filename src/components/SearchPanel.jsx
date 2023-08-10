@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 
-const AddBtn = () => {
+const AddBtn = ({ food, quantity }) => {
 	function addProductToTheFridge() {
-		console.log("adding...")
+		console.log(`adding... id:${food.id} amount:${quantity} name:${food.name}`)
 	}
 	return (
 		<button
@@ -18,6 +18,7 @@ function SearchPanel() {
 	const [searchProduct, setSearchProduct] = useState("")
 	const [searchResults, setSearchResults] = useState([])
 	const [timer, setTimer] = useState(null)
+	const [quantity, setQuantity] = useState(1)
 
 	function fetchAllProducts(query) {
 		const API_KEY = "74c9df41a61f44b49363d25085ceeade"
@@ -28,7 +29,6 @@ function SearchPanel() {
 			.then(response => response.json())
 			.then(data => {
 				console.log("API response:", data)
-
 				setSearchResults(data.results)
 			})
 			.catch(error => {
@@ -69,13 +69,15 @@ function SearchPanel() {
 							min='0'
 							step='1'
 							className='w-16 mr-6 bg-blue-100 m-0 text-center'
+							value={quantity}
+							onChange={e => setQuantity(e.target.value)}
 						/>
 						<select id='unit' className='w-fit'>
 							<option value='pcs'>pieces</option>
 							<option value='l'>liters</option>
 							<option value='g'>grams</option>
 						</select>
-						<AddBtn />
+						<AddBtn food={food} quantity={quantity} />
 					</div>
 				))}
 			</ul>
@@ -84,3 +86,5 @@ function SearchPanel() {
 }
 
 export default SearchPanel
+
+
