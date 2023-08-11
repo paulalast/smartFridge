@@ -4,24 +4,27 @@ import Button from "../components/Button"
 import AddProducts from "../components/AddProducts"
 import AddBasicList from "../components/AddBasicList"
 
-function EmptyFridgeHome() {
+function EmptyFridgeHome({ onFridgeFilled }) {
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [isSecondModalOpen, setIsSecondModalOpen] = useState(false)
 
 	const handleAddBasicProductsClick = () => {
 		setIsSecondModalOpen(true)
-		console.log("hej")
+		console.log("Add BASIC PROD")
 	}
 	const handleAddProductsClick = () => {
 		setIsModalOpen(true)
-		console.log("ok")
+		console.log("ADD API PROD")
 	}
 
-	const handleCloseModal = () => {
+	const handleCloseModalAPIProducts = () => {
 		setIsModalOpen(false)
 	}
-	const handleSecondCloseModal = () => {
+	const handleSecondCloseModalBasicProducts = () => {
 		setIsSecondModalOpen(false)
+	}
+	const handleAddProductsSuccess = () => {
+		onFridgeFilled()
 	}
 
 	return (
@@ -36,8 +39,10 @@ function EmptyFridgeHome() {
 				/>
 			</div>
 
-			{isModalOpen && <AddProducts onClose={handleCloseModal} />}
-			{isSecondModalOpen && <AddBasicList onClose={handleSecondCloseModal} />}
+			{isModalOpen && <AddProducts onClose={handleCloseModalAPIProducts} onAddSuccess={handleAddProductsSuccess} />}
+			{isSecondModalOpen && (
+				<AddBasicList onClose={handleSecondCloseModalBasicProducts} />
+			)}
 		</div>
 	)
 }

@@ -21,3 +21,7 @@ const AddBasicList = ({ onClose }) => {
 }
 
 export default AddBasicList
+
+
+
+// basic list of products

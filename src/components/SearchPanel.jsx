@@ -41,7 +41,7 @@ function SearchPanel() {
 		if (timer) clearTimeout(timer)
 		const newTimer = setTimeout(() => {
 			fetchAllProducts(e.target.value)
-		}, 2000)
+		}, 1500)
 		setTimer(newTimer)
 	}
 

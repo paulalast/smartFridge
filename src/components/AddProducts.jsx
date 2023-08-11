@@ -5,7 +5,14 @@ import SearchPanel from "./SearchPanel"
 import { QueryClient, QueryClientProvider } from "react-query"
 
 const queryClient = new QueryClient()
-function AddProducts({ onClose }) {
+
+function AddProducts({ onClose, onAddSuccess }) {
+	const btnPutIntoTheFridge = () => {
+		onClose()
+		if (onAddSuccess) onAddSuccess()
+		//close modal add product api
+		// open page FullFridgeHome
+	}
 	return (
 		<div className='fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 '>
 			<div className='flex p-5 max-w-max flex-col items-center w-full h-4/5 bg-white border-2 relative overflow-y-auto'>
@@ -18,11 +25,14 @@ function AddProducts({ onClose }) {
 				<Button
 					buttonText='Put into the fridge'
 					className='justify-center bottom-0'
-					onClick={onClose}
+					onClick={btnPutIntoTheFridge}
 				/>
+			
 			</div>
 		</div>
 	)
 }
 
 export default AddProducts
+
+// add products, api searching modal

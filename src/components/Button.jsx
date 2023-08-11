@@ -9,3 +9,6 @@ function Button({ buttonText, onClick }) {
 }
 
 export default Button
+
+
+// every green btn

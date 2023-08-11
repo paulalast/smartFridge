@@ -12,3 +12,6 @@ const IconBtn = ({ iconSrc, altText, onClick }) => {
 }
 
 export default IconBtn
+
+
+// every icon btn x +
