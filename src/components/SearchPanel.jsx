@@ -1,8 +1,37 @@
 import React, { useState } from "react"
 
-const AddBtn = ({ food, quantity }) => {
+const AddBtn = ({
+	food,
+	quantity,
+	newProduct,
+	category,
+	setSearchResults,
+	setFridgeContents,
+}) => {
 	function addProductToTheFridge() {
-		console.log(`adding... id:${food.id} amount:${quantity} name:${food.name}`)
+		const API_KEY = "74c9df41a61f44b49363d25085ceeade"
+
+		fetch(
+			`https://api.spoonacular.com/food/ingredients/${food.id}/information?&apiKey=${API_KEY}`
+		)
+			.then(response => response.json())
+			.then(data => {
+				const categoryPath = data.categoryPath.join(", ")
+				const newProduct = {
+					id: food.id,
+					name: food.name,
+					quantity: quantity,
+					category: categoryPath,
+				}
+				setFridgeContents(prevContents => [...prevContents, newProduct])
+				setSearchResults(data.results)
+				console.log(
+					`adding... id:${food.id} quantity:${quantity} name:${food.name} category: ${categoryPath}`
+				)
+			})
+			.catch(error => {
+				console.error("Error fetching data:", error)
+			})
 	}
 	return (
 		<button
@@ -19,12 +48,13 @@ function SearchPanel() {
 	const [searchResults, setSearchResults] = useState([])
 	const [timer, setTimer] = useState(null)
 	const [quantity, setQuantity] = useState(1)
+	const [fridgeContents, setFridgeContents] = useState([])
 
 	function fetchAllProducts(query) {
 		const API_KEY = "74c9df41a61f44b49363d25085ceeade"
 
 		fetch(
-			`https://api.spoonacular.com/food/ingredients/search?query=${query}&apiKey=${API_KEY}`
+			`https://api.spoonacular.com/food/ingredients/search?query=${query}&apiKey=${API_KEY}&`
 		)
 			.then(response => response.json())
 			.then(data => {
@@ -55,36 +85,40 @@ function SearchPanel() {
 				onChange={handleSearch}
 			/>
 			<ul className='mt-4 w-5/6 my-2 pl-6 font-textFont border py-1 max-h-[250] overflow-y-auto'>
-				{searchResults.map(food => (
-					<div className='flex h-fit max-h-full' key={food.id}>
-						<li className='flex w-full bg-yellow-100 flex-row p-2 text-2xl text-left border-b'>
-							{food.name}
-						</li>
-						<input
-							type='number'
-							id='quantity'
-							inputMode='numeric'
-							pattern='[0-9]*'
-							placeholder='1'
-							min='0'
-							step='1'
-							className='w-16 mr-6 bg-blue-100 m-0 text-center'
-							value={quantity}
-							onChange={e => setQuantity(e.target.value)}
-						/>
-						<select id='unit' className='w-fit'>
-							<option value='pcs'>pieces</option>
-							<option value='l'>liters</option>
-							<option value='g'>grams</option>
-						</select>
-						<AddBtn food={food} quantity={quantity} />
-					</div>
-				))}
+				{searchResults &&
+					searchResults.map(food => (
+						<div className='flex h-fit max-h-full' key={food.id}>
+							<li className='flex w-full bg-yellow-100 flex-row p-2 text-2xl text-left border-b'>
+								{food.name}
+							</li>
+							<input
+								type='number'
+								id='quantity'
+								inputMode='numeric'
+								pattern='[0-9]*'
+								placeholder='1'
+								min='0'
+								step='1'
+								className='w-16 mr-6 bg-blue-100 m-0 text-center'
+								value={quantity}
+								onChange={e => setQuantity(e.target.value)}
+							/>
+							<select id='unit' className='w-fit'>
+								<option value='pcs'>pieces</option>
+								<option value='l'>liters</option>
+								<option value='g'>grams</option>
+							</select>
+							<AddBtn
+								food={food}
+								quantity={quantity}
+								setSearchResults={setSearchResults}
+								setFridgeContents={setFridgeContents}
+							/>
+						</div>
+					))}
 			</ul>
 		</div>
 	)
 }
 
 export default SearchPanel
-
-
