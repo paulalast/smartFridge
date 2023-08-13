@@ -9,7 +9,7 @@ const AddBtn = ({
 	setFridgeContents,
 }) => {
 	function addProductToTheFridge() {
-		const API_KEY = "74c9df41a61f44b49363d25085ceeade"
+		const API_KEY = import.meta.env.VITE_REACT_APP_SPOONACULAR_API_KEY
 
 		fetch(
 			`https://api.spoonacular.com/food/ingredients/${food.id}/information?&apiKey=${API_KEY}`
@@ -51,7 +51,7 @@ function SearchPanel() {
 	const [fridgeContents, setFridgeContents] = useState([])
 
 	function fetchAllProducts(query) {
-		const API_KEY = "74c9df41a61f44b49363d25085ceeade"
+		const API_KEY = import.meta.env.VITE_REACT_APP_SPOONACULAR_API_KEY
 
 		fetch(
 			`https://api.spoonacular.com/food/ingredients/search?query=${query}&apiKey=${API_KEY}&`
